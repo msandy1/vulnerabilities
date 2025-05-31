@@ -46,44 +46,52 @@
             const userNameElement = document.getElementById('user-name');
             const logoutButton = document.getElementById('logoutButton');
 
-            // Get user from URL parameter first
-            const urlParams = new URLSearchParams(window.location.search);
-            const urlUser = urlParams.get('user');
-
-            let displayName = null;
-
-            if (urlUser) {
-                displayName = urlUser;
-                // Optionally, re-sync localStorage if URL is the primary source
-                localStorage.setItem('loggedInUser', urlUser);
-            } else {
-                // Fallback to localStorage if URL param is not present
-                const storedUserName = localStorage.getItem('loggedInUser');
-                if (storedUserName) {
-                    displayName = storedUserName;
-                }
-            }
+            // Use loggedInUserName from localStorage, set during API login
+            const loggedInName = localStorage.getItem('loggedInUserName');
+            const loggedInUser = localStorage.getItem('loggedInUser'); // still useful for verifying access
 
             if (userNameElement) {
-                if (displayName) {
-                    // Capitalize the first letter of the username for display
-                    userNameElement.textContent = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+                if (loggedInName) {
+                    // Capitalize the first letter for display if needed, or just use as is.
+                    // For consistency with previous, let's assume the stored name is fine as is.
+                    userNameElement.textContent = loggedInName;
                 } else {
-                    userNameElement.textContent = 'Guest'; // Fallback if no name found anywhere
-                    // Optionally, redirect to login if no user identification is found
-                    // window.location.href = 'login.html';
+                    // If for some reason loggedInUserName is not found, fallback or redirect
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const urlUser = urlParams.get('user');
+                    if (urlUser) {
+                        userNameElement.textContent = urlUser.charAt(0).toUpperCase() + urlUser.slice(1); // Fallback to URL param if name missing
+                    } else {
+                        userNameElement.textContent = 'Guest';
+                        // Redirect to login if no user identification is found at all
+                        // window.location.href = 'login.html';
+                    }
                 }
             }
+
+            // Verify if the user viewing the page is the one logged in,
+            // or if an admin is viewing. This is a simple client-side check.
+            // For true security, this should be validated server-side if actions are performed.
+            const urlParams = new URLSearchParams(window.location.search);
+            const pageUser = urlParams.get('user');
+            if (loggedInUser !== pageUser) {
+                // Potentially redirect or show a limited view if not the logged-in user's page
+                // For now, we just display based on localStorage or URL param.
+                // This check is more relevant if we were to implement editing features here.
+                console.warn("Viewing someone else's account page or not logged in properly.");
+            }
+
 
             if (logoutButton) {
                 logoutButton.addEventListener('click', function() {
-                    // Clear stored user info
+                    // Clear all relevant user info from localStorage
                     localStorage.removeItem('loggedInUser');
+                    localStorage.removeItem('loggedInUserName');
+                    localStorage.removeItem('isAdmin');
+
                     // Redirect to login page
                     window.location.href = 'login.html';
-                    // The alert can be removed if a smoother UX is desired,
-                    // but it provides explicit feedback.
-                    // alert('You have been logged out.');
+                    // alert('You have been logged out.'); // Optional: keep if explicit feedback is good
                 });
             }
         });
