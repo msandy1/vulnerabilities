@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wonderful World of LEGO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for a more playful feel, fallback to sans-serif */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-yellow-100 to-red-100 min-h-screen text-gray-800">
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="bg-white rounded-xl shadow-lg p-6 mb-8 text-center">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-red-600 mb-4 animate-pulse">
+                The Wonderful World of LEGO
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-600">
+                Dive into the colorful and creative universe of LEGO bricks!
+            </p>
+        </header>
+
+        <section class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-3xl sm:text-4xl font-bold text-blue-700 mb-4">What is LEGO?</h2>
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="md:w-1/2">
+                    <p class="text-base sm:text-lg leading-relaxed mb-4">
+                        LEGO is a line of plastic construction toys manufactured by The LEGO Group, a privately held company based in Billund, Denmark. The company's flagship product, LEGO, consists of interlocking plastic bricks accompanied by an array of gears, minifigures, and various other parts. These parts can be assembled and connected in many ways to construct objects, including vehicles, buildings, and working robots. Anything constructed can then be taken apart again, and the pieces reused for new constructions.
+                    </p>
+                    <p class="text-base sm:text-lg leading-relaxed">
+                        The word "LEGO" is derived from the Danish words "leg godt", meaning "play well". Later, it was discovered that "lego" also means "I put together" in Latin, though this was a mere coincidence.
+                    </p>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://placehold.co/600x400/FFD700/000000?text=LEGO+Bricks" alt="Colorful LEGO Bricks" class="rounded-lg shadow-md w-full max-w-sm md:max-w-full h-auto">
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-3xl sm:text-4xl font-bold text-green-700 mb-4">A Brief History</h2>
+            <div class="flex flex-col md:flex-row-reverse items-center gap-6">
+                <div class="md:w-1/2">
+                    <p class="text-base sm:text-lg leading-relaxed mb-4">
+                        The LEGO Group was founded in 1932 by Ole Kirk Christiansen. It started out making wooden toys. The first plastic LEGO bricks were produced in 1949, and the "stud-and-tube" coupling system that makes the bricks interlock so effectively was patented in 1958.
+                    </p>
+                    <p class="text-base sm:text-lg leading-relaxed">
+                        Since then, LEGO has grown into a global phenomenon, inspiring generations of builders and creators with its endless possibilities. From simple bricks to complex robotic systems, LEGO continues to innovate and capture imaginations worldwide.
+                    </p>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://placehold.co/600x400/87CEEB/FFFFFF?text=LEGO+History" alt="Old LEGO Logo" class="rounded-lg shadow-md w-full max-w-sm md:max-w-full h-auto">
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-3xl sm:text-4xl font-bold text-purple-700 mb-4">Popular LEGO Themes</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gray-50 rounded-lg p-4 shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <img src="https://placehold.co/400x250/FF6347/FFFFFF?text=City" alt="LEGO City" class="rounded-md mb-3 w-full h-auto">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">LEGO City</h3>
+                    <p class="text-gray-700 text-sm">Build bustling urban landscapes with police stations, fire trucks, and everyday life scenarios.</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <img src="https://placehold.co/400x250/4682B4/FFFFFF?text=Star+Wars" alt="LEGO Star Wars" class="rounded-md mb-3 w-full h-auto">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">LEGO Star Wars</h3>
+                    <p class="text-gray-700 text-sm">Recreate iconic scenes and ships from the beloved Star Wars saga.</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <img src="https://placehold.co/400x250/DAA520/FFFFFF?text=Ninjago" alt="LEGO Ninjago" class="rounded-md mb-3 w-full h-auto">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">LEGO Ninjago</h3>
+                    <p class="text-gray-700 text-sm">Join the ninja heroes in their adventures with dragons, mechs, and ancient temples.</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <img src="https://placehold.co/400x250/9370DB/FFFFFF?text=Technic" alt="LEGO Technic" class="rounded-md mb-3 w-full h-auto">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">LEGO Technic</h3>
+                    <p class="text-gray-700 text-sm">Experience advanced building with functional models featuring realistic mechanisms.</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <img src="https://placehold.co/400x250/F08080/FFFFFF?text=Friends" alt="LEGO Friends" class="rounded-md mb-3 w-full h-auto">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">LEGO Friends</h3>
+                    <p class="text-gray-700 text-sm">Explore Heartlake City with five best friends and their everyday adventures.</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <img src="https://placehold.co/400x250/20B2AA/FFFFFF?text=Creator" alt="LEGO Creator" class="rounded-md mb-3 w-full h-auto">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">LEGO Creator</h3>
+                    <p class="text-gray-700 text-sm">Build and rebuild with 3-in-1 models, offering multiple building possibilities from one set.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-xl shadow-lg p-6 text-center mb-8">
+            <h2 class="text-3xl sm:text-4xl font-bold text-orange-600 mb-4">Join the LEGO Community!</h2>
+            <p class="text-lg sm:text-xl leading-relaxed mb-6">
+                Whether you're a seasoned builder or just starting, the world of LEGO offers endless fun and creativity. Share your creations, find inspiration, and connect with fellow enthusiasts!
+            </p>
+            <a href="#" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
+                Start Building Today!
+            </a>
+        </section>
+
+        <footer class="text-center text-gray-600 text-sm mt-8 p-4">
+            <p>&copy; 2025 The Wonderful World of LEGO. All rights reserved. LEGO® is a trademark of the LEGO Group.</p>
+        </footer>
+    </div>
+</body>
+</html>
