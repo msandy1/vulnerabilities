@@ -23,7 +23,7 @@ This application now uses a Flask backend with an SQLite database.
     *   Create a default admin user with credentials: `admin` / `adminpassword`. (You should change the default admin password in a production environment).
 
 3.  **Access the application:**
-    Open your web browser and navigate to `http://localhost:2222`.
+    Open your web browser and navigate to `http://localhost:2222 (or http://127.0.0.1:2222 if localhost does not work).`
 
 4.  **Access the Admin Page:**
     To manage users, navigate to `http://localhost:2222/admin`.
