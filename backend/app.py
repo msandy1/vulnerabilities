@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify, render_template, session # Added render_template and session
+from flask import Flask, request, jsonify, render_template, session, send_from_directory # Add send_from_directory
 from .models import db, bcrypt, User  # Import db, bcrypt, User from models.py
 from .database import init_db       # Import init_db from database.py
 
@@ -37,11 +37,27 @@ def create_db_command():
         else:
             print("Admin user 'admin' already exists.")
 
+# --- Static File Serving ---
+# Serve index.html from the root path
 @app.route('/')
-def hello():
-    # A simple route to check if the app is running
-    return "Hello from Flask backend!"
+def serve_index():
+    # app.root_path is '/app/backend' in Docker. We want to serve from '/app'.
+    return send_from_directory(os.path.join(app.root_path, '..'), 'index.html')
 
+@app.route('/login')
+def serve_login_page():
+    return send_from_directory(os.path.join(app.root_path, '..'), 'login.html')
+
+@app.route('/registration')
+def serve_registration_page():
+    return send_from_directory(os.path.join(app.root_path, '..'), 'registration.html')
+
+@app.route('/account') # This route might conflict if account.html expects a ?user= parameter directly
+def serve_account_page():
+    # Serving account.html directly. The client-side JS in account.html handles URL params.
+    return send_from_directory(os.path.join(app.root_path, '..'), 'account.html')
+
+# --- API Routes ---
 @app.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json()
