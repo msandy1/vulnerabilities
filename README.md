@@ -1,5 +1,5 @@
 # vulnerabilities
-ai created app nothing crazy speacial just target practice for cyber security study.
+ai created app nothing crazy special just target practice for cyber security study.
 
 ## Running with Docker
 
