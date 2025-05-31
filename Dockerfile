@@ -4,7 +4,7 @@ FROM python:3.9-slim
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
+ENV FLASK_DEBUG 1 # Add this line
 
 # Set the working directory in the container
 WORKDIR /app
