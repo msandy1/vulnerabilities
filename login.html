@@ -32,14 +32,19 @@
                     <input type="password" id="password" name="password" required
                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between mb-4">
                     <button type="submit"
                             class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-full transition-all duration-300 transform hover:scale-105">
                         Sign In
                     </button>
                 </div>
+                <div class="text-center">
+                    <a href="registration.html" class="text-sm text-blue-600 hover:text-blue-800 underline">
+                        Don't have an account? Register here
+                    </a>
+                </div>
             </form>
-            <p class="text-center text-gray-600 text-xs mt-6">
+            <p class="text-center text-gray-600 text-xs mt-8">
                 &copy; 2025 The Wonderful World of LEGO. All rights reserved.
             </p>
         </main>
@@ -75,10 +80,10 @@
                 }
 
                 if (loggedIn) {
-                    messageArea.textContent = 'Login successful! Welcome, ' + username + '!';
-                    messageArea.className = 'text-green-500 text-sm font-semibold p-3 bg-green-100 rounded-md';
-                    // In a real application, you would redirect to another page or update UI
-                    // For example: window.location.href = 'dashboard.html';
+                    // Store username for potential use on the account page
+                    localStorage.setItem('loggedInUser', username);
+                    // Redirect to account.html with username as a URL parameter
+                    window.location.href = 'account.html?user=' + encodeURIComponent(username);
                 } else {
                     messageArea.textContent = 'Invalid username or password. Please try again.';
                     messageArea.className = 'text-red-500 text-sm font-semibold p-3 bg-red-100 rounded-md';
