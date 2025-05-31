@@ -1,5 +1,5 @@
 # vulnerabilities
-a web app for hacking  practice
+ai created app nothing crazy speacial just target practice for cyber security study.
 
 ## Running with Docker
 
