@@ -33,13 +33,26 @@
                 </div>
                 <div class="mb-4">
                     <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
-                    <input type="password" id="password" name="password" required minlength="8"
-                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <div class="relative">
+                        <input type="password" id="password" name="password" required minlength="8"
+                               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-16">
+                        <button type="button" id="togglePassword"
+                                class="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600 hover:text-gray-800 focus:outline-none">
+                            Show
+                        </button>
+                    </div>
                 </div>
                 <div class="mb-6">
                     <label for="confirmPassword" class="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required minlength="8"
-                           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+                    <div class="relative">
+                        <input type="password" id="confirmPassword" name="confirmPassword" required minlength="8"
+                               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline pr-16">
+                        <button type="button" id="toggleConfirmPassword"
+                                class="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600 hover:text-gray-800 focus:outline-none"
+                                style="margin-bottom: 0.75rem; /* mb-3 equivalent for the button position */">
+                            Show
+                        </button>
+                    </div>
                 </div>
                 <div id="message-area" class="mb-4 text-center"></div>
                 <div class="flex flex-col items-center justify-center">
@@ -63,8 +76,23 @@
             const fullNameInput = document.getElementById('fullName');
             const usernameInput = document.getElementById('username');
             const passwordInput = document.getElementById('password');
+            const togglePasswordButton = document.getElementById('togglePassword');
             const confirmPasswordInput = document.getElementById('confirmPassword');
+            const toggleConfirmPasswordButton = document.getElementById('toggleConfirmPassword');
             const messageArea = document.getElementById('message-area');
+
+            function setupPasswordToggle(inputElement, buttonElement) {
+                if (inputElement && buttonElement) {
+                    buttonElement.addEventListener('click', function() {
+                        const type = inputElement.getAttribute('type') === 'password' ? 'text' : 'password';
+                        inputElement.setAttribute('type', type);
+                        this.textContent = type === 'password' ? 'Show' : 'Hide';
+                    });
+                }
+            }
+
+            setupPasswordToggle(passwordInput, togglePasswordButton);
+            setupPasswordToggle(confirmPasswordInput, toggleConfirmPasswordButton);
 
             // Ensure users array is loaded from database.js
             if (typeof users === 'undefined') {
