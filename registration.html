@@ -94,9 +94,9 @@
             setupPasswordToggle(passwordInput, togglePasswordButton);
             setupPasswordToggle(confirmPasswordInput, toggleConfirmPasswordButton);
 
-            // Ensure users array is loaded from database.js
-            if (typeof users === 'undefined') {
-                console.error('User database (users array) not loaded. Make sure database.js is included correctly and users is a global variable.');
+            // Ensure addUser function is available from database.js
+            if (typeof addUser !== 'function') {
+                console.error('addUser function not loaded from database.js. Make sure database.js is included correctly.');
                 messageArea.textContent = 'Error: Registration system unavailable. Please try again later.';
                 messageArea.className = 'text-red-500 text-sm font-semibold p-3 bg-red-100 rounded-md mb-4';
                 if(registrationForm) registrationForm.querySelector('button[type="submit"]').disabled = true;
@@ -137,33 +137,28 @@
                     return;
                 }
 
-                // 4. Username does not already exist
-                const usernameExists = users.some(user => user.username === username);
-                if (usernameExists) {
-                    messageArea.textContent = 'Username already taken. Please choose another one.';
-                    messageArea.className = 'text-red-500 text-sm font-semibold p-3 bg-red-100 rounded-md mb-4';
-                    usernameInput.focus();
-                    return;
-                }
-
-                // If all validations pass:
+                // If basic client-side validations pass, attempt to add user via addUser from database.js
                 const newUser = {
                     username: username,
-                    password: password, // Store password directly (as per current database.js structure)
+                    password: password,
                     name: fullName
                 };
 
-                users.push(newUser); // Add to the in-memory users array
+                if (addUser(newUser)) { // addUser handles duplicate check and saving to localStorage
+                    messageArea.textContent = 'Registration successful! Redirecting to login...';
+                    messageArea.className = 'text-green-500 text-sm font-semibold p-3 bg-green-100 rounded-md mb-4';
+                    registrationForm.reset(); // Clear the form fields
 
-                messageArea.textContent = 'Registration successful! Redirecting to login...';
-                messageArea.className = 'text-green-500 text-sm font-semibold p-3 bg-green-100 rounded-md mb-4';
-
-                registrationForm.reset(); // Clear the form fields
-
-                // Redirect to login.html after a short delay
-                setTimeout(function() {
-                    window.location.href = 'login.html';
-                }, 2000); // 2-second delay
+                    // Redirect to login.html after a short delay
+                    setTimeout(function() {
+                        window.location.href = 'login.html';
+                    }, 2000); // 2-second delay
+                } else {
+                    // addUser returned false, meaning username likely already taken
+                    messageArea.textContent = 'Username already taken. Please choose another one.';
+                    messageArea.className = 'text-red-500 text-sm font-semibold p-3 bg-red-100 rounded-md mb-4';
+                    usernameInput.focus();
+                }
             });
         });
     </script>
