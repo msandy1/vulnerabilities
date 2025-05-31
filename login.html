@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - The Wonderful World of LEGO</title>
+    <script src="database.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom font for a more playful feel, fallback to sans-serif */
@@ -19,7 +20,8 @@
             <h1 class="text-3xl sm:text-4xl font-extrabold text-red-600 mb-6 text-center">
                 Login to LEGO World
             </h1>
-            <form action="#" method="POST">
+            <div id="message-area" class="mb-4 text-center"></div>
+            <form id="loginForm" action="#" method="POST">
                 <div class="mb-4">
                     <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
                     <input type="text" id="username" name="username" required
@@ -42,5 +44,47 @@
             </p>
         </main>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loginForm = document.getElementById('loginForm');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const messageArea = document.getElementById('message-area');
+
+            // Ensure users array is loaded (it should be, due to defer in database.js script tag)
+            if (typeof users === 'undefined') {
+                console.error('User database not loaded. Make sure database.js is included correctly.');
+                messageArea.textContent = 'Error: User database not found. Please try again later.';
+                messageArea.className = 'text-red-500 text-sm';
+                return;
+            }
+
+            loginForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent actual form submission
+
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value; // Passwords should be taken as is
+
+                let loggedIn = false;
+                for (let i = 0; i < users.length; i++) {
+                    if (users[i].username === username && users[i].password === password) {
+                        loggedIn = true;
+                        break;
+                    }
+                }
+
+                if (loggedIn) {
+                    messageArea.textContent = 'Login successful! Welcome, ' + username + '!';
+                    messageArea.className = 'text-green-500 text-sm font-semibold p-3 bg-green-100 rounded-md';
+                    // In a real application, you would redirect to another page or update UI
+                    // For example: window.location.href = 'dashboard.html';
+                } else {
+                    messageArea.textContent = 'Invalid username or password. Please try again.';
+                    messageArea.className = 'text-red-500 text-sm font-semibold p-3 bg-red-100 rounded-md';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
