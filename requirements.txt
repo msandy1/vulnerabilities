@@ -1,0 +1,11 @@
+Django>=3.2,<4.0 # Or a more specific version if desired
+djangorestframework>=3.12,<3.15
+djangorestframework-simplejwt>=5.0,<5.4
+bcrypt>=3.2,<4.1
+gunicorn>=20.1,<22.0
+psycopg2-binary>=2.9,<2.10 # For PostgreSQL, optional if only using SQLite
+python-dotenv>=0.19,<1.1 # For managing environment variables for settings
+
+# For development, if needed (though not strictly for runtime requirements)
+# pylint-django
+dj_database_url>=0.5,<2.2

@@ -1,0 +1,108 @@
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+static_root/
+staticfiles/
+.env
+.venv/
+*.swp
+*.swo
+instance/
+
+# Existing from .dockerignore (if relevant, otherwise they can be removed or kept separate)
+# .git (already default)
+# .gitignore (meta)
+# Dockerfile (usually kept)
+# *.md (user choice, often kept)
+
+# Project specific
+# e.g. backend/instance/ - good to ignore if it contains sensitive data or local DBs
+backend/instance/
+
+# Python virtualenv
+.env
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE / Editor files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+# Usually these files are written by a CI script
+# and the Python package itself is managed by poetry
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# SQLite
+*.sqlite3
+*.sqlite3-journal
+# Other DBs if local
+# *.db
+
+# Thumbnails
+._*
+
+# Temp files
+*.tmp
+*~
+# If there are other specific files/folders from the old .dockerignore to add, they can be added here.
+# For instance, if there were specific logs or build artifacts.
