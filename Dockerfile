@@ -4,41 +4,62 @@ FROM python:3.9-slim
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV FLASK_DEBUG 1 # Add this line
+ENV APP_HOME=/app
+ENV PORT 8000
+# DJANGO_SETTINGS_MODULE will be implicitly config.settings due to project structure and CWD.
 
-# Set the working directory in the container
-WORKDIR /app
+WORKDIR $APP_HOME
 
-# Install system dependencies that might be needed by some Python packages
-# RUN apt-get update && apt-get install -y --no-install-recommends some-build-tools gcc
+# Install system dependencies (if any - e.g., for psycopg2 if not using -binary)
+# RUN apt-get update && apt-get install -y --no-install-recommends build-essential libpq-dev
 
 # Copy requirements file first to leverage Docker cache
-COPY backend/requirements.txt .
+COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the backend application code
-COPY backend/ /app/backend/
+# Copy the rest of the application code
+# Our Django project 'config' is at the root of the repo (/app in WORKDIR)
+# manage.py is directly in /app (moved from /app/config/ in a previous step if I recall, or created there)
+# Let's verify manage.py location first.
+# Assuming manage.py is at $APP_HOME/manage.py (which is /app/manage.py)
+# And the project directory 'config' (with settings.py, wsgi.py, etc.) is at $APP_HOME/config/
+COPY manage.py $APP_HOME/
+COPY config/ $APP_HOME/config/
 
-# Copy the static frontend files
-# These files (HTML, CSS, JS) will be served by Flask in this setup,
-# or could be served by a separate web server like Nginx in a more complex setup.
-COPY index.html .
-COPY login.html .
-COPY registration.html .
-COPY account.html .
-# If there are any CSS or JS static assets directly in the root or a static/css/js folder, copy them too.
-# For example, if you have a 'static' folder for general assets (not the Flask one):
-# COPY static/ /app/static/
+# The .env file contains environment variables for settings
+COPY .env $APP_HOME/.env
 
-# Ensure the instance folder for SQLite exists (though app.py also tries to create it)
-RUN mkdir -p /app/backend/instance
-
-# Expose the port the app runs on (Flask default is 5000)
-EXPOSE 5000
+# Expose the port the app runs on
+EXPOSE $PORT
 
 # Define the command to run the application
-# This will first run the database creation/admin user setup, then start Flask.
-# Note: For production, use a proper WSGI server like Gunicorn instead of Flask's dev server.
-CMD ["sh", "-c", "flask --app backend.app create-db && flask --app backend.app run --debug --host=0.0.0.0 --port=5000"]
+# Create a simple startup script to handle this.
+COPY <<END_SCRIPT entrypoint.sh
+#!/bin/sh
+# Exit on error
+set -e
+
+echo "Running Django database migrations..."
+# manage.py is at the WORKDIR root /app
+python manage.py migrate --noinput
+
+echo "Collecting static files..."
+python manage.py collectstatic --noinput --clear
+
+echo "Starting Gunicorn..."
+# Gunicorn should bind to 0.0.0.0 to be accessible from outside the container.
+# The number of workers can be tuned. (2 * NUM_CORES) + 1 is a common recommendation.
+exec gunicorn config.wsgi:application \
+    --bind "0.0.0.0:\${PORT}" \
+    --workers 3 \
+    --log-level=info \
+    --access-logfile '-' \
+    --error-logfile '-'
+
+END_SCRIPT
+RUN chmod +x entrypoint.sh
+
+# Set the entrypoint
+ENTRYPOINT ["/app/entrypoint.sh"]

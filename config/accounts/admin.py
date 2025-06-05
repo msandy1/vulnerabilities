@@ -54,5 +54,3 @@ admin.site.register(User, UserAdmin)
 # if admin.site.is_registered(Group):
 #     admin.site.unregister(Group)
 # admin.site.register(Group) # Re-register Group if needed, usually not.
-
-EOF

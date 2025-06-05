@@ -1,4 +1,54 @@
+# Git files
 .git
 .gitignore
+
+# Docker files
 Dockerfile
+entrypoint.sh
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.sublime-*
+*.komodoproject
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Test reports
+htmlcov/
+.tox/
+.coverage
+.pytest_cache/
+
+# Databases (if local and not wanted in image)
+*.sqlite3
+*.sqlite3-journal
+backend/instance/ # Old flask instance db
+
+# Secrets / Local config (though .env is explicitly copied into image in this Dockerfile)
+# .env
+
+# Documentation / Misc
 *.md
+
+# Other project specific files/folders to ignore
+# If there are large data files not needed by the app runtime.
+# Logs
+*.log
+logs/
+local_settings.py

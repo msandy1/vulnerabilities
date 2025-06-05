@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR is now config directory: /app/config/
+BASE_DIR = Path(__file__).resolve().parent
 import os # Keep one os import
 from dotenv import load_dotenv
 import dj_database_url
@@ -63,7 +64,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        # BASE_DIR is /app/config. Templates are in /app/config/templates
+        # So, DIRS should be [BASE_DIR / 'templates'] or [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -97,7 +100,7 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
     'django.contrib.auth.hashers.Argon2PasswordHasher',
-    'django.contrib.auth.hashers.ScryptPasswordHasher',
+    # 'django.contrib.auth.hashers.ScryptPasswordHasher', # Removed, not available in Django 3.2
 ]
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -132,8 +135,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_collected') # For collectstatic
+# BASE_DIR is /app/config. Static files are in /app/config/static
+# So, STATICFILES_DIRS should be [BASE_DIR / 'static'] or [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [BASE_DIR / 'static']
+# STATIC_ROOT will now be /app/config/staticfiles_collected. This is fine.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_collected')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
